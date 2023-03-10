@@ -1,21 +1,20 @@
-import { it } from "vitest";
-import { Equal, Expect } from "../helpers/type-utils";
+import { it } from 'vitest'
+import { Equal, Expect } from '../helpers/type-utils'
 
-export const returnWhatIPassIn = <T>(t: T) => t;
+type myFunction = <T extends string>(t: T) => T
 
-it("Should ONLY allow strings to be passed in", () => {
-  const a = returnWhatIPassIn("a");
+export const returnWhatIPassIn: myFunction = (t) => t
 
-  type test1 = Expect<Equal<typeof a, "a">>;
+it('Should ONLY allow strings to be passed in', () => {
+	const a = returnWhatIPassIn('a')
 
-  // @ts-expect-error
-  returnWhatIPassIn(1);
+	type test1 = Expect<Equal<typeof a, 'a'>>
 
-  // @ts-expect-error
-  returnWhatIPassIn(true);
+	// @ts-expect-error
+	returnWhatIPassIn(true)
 
-  // @ts-expect-error
-  returnWhatIPassIn({
-    foo: "bar",
-  });
-});
+	// @ts-expect-error
+	returnWhatIPassIn({
+		foo: 'bar',
+	})
+})
